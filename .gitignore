@@ -16,3 +16,4 @@
 # Intelli J
 .idea/
 mysql-parallel-replicator.iml
+example_shard_rebalancing/example_shard_rebalancing
