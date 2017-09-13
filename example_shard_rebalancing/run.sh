@@ -3,24 +3,38 @@
 set -e
 set -x
 
-PS4='$ Line ${LINENO}: '
-
+PS4='\n$ Line ${LINENO}: '
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd ${DIR}
-APP_NAME=`basename ${DIR}`
+#APP_NAME=`basename ${DIR}`
+DATETIME=`date +%Y%m%d_%H%M%S`
 
+# load configurations
 source ./env.sh
 
-docker ps  | grep mysql_repl_src | awk '{print $1}' | xargs -I{} docker stop {}
-docker build -f mysql_repl_src.dockerfile -t mysql_repl_src .
-CONTAINER_ID=`docker run -p "$REPL_SRC_PORT:3306" -e MYSQL_ROOT_PASSWORD="$MYSQL_ROOT_PASSWORD" -d mysql_repl_src:latest`
+# restart mysql docker
+docker ps  | grep mysql | awk '{print $1}' | xargs -I{} docker stop {}
 
-CONTAINER_ID=`docker ps  | grep mysql_repl_src | awk '{print $1}'`
-#sleep 10
-#echo ${CONTAINER_ID}
+docker run \
+    --name mysql_server_1_${DATETIME} \
+    -p "$REPL_SRC_PORT:3306" \
+    -e MYSQL_ROOT_PASSWORD="$MYSQL_ROOT_PASSWORD" \
+    -d mysql:5.7 \
+    --log-bin \
+    --server-id=1
+
+# init database
+CONTAINER_ID=`docker ps  | grep "mysql_server_1_" | awk '{print $1}'`
+
+set +e
+while [ "`docker logs ${CONTAINER_ID} 2>&1  | grep -o "ready for connections" | wc -l`" -lt "2" ] ; do
+    echo "waiting for mysql server..."
+    sleep 1
+done
+set -e
+
+cat sql/init.sql | docker exec -i ${CONTAINER_ID} mysql -uroot -p${MYSQL_ROOT_PASSWORD}
+
 
 go build -v .
-./${APP_NAME}
-
-echo "show databases" | docker exec -i ${CONTAINER_ID} mysql -uroot -psecret
-echo "show tables from adt_test" | docker exec -i ${CONTAINER_ID} mysql -uroot -psecret
+./`basename ${DIR}`
