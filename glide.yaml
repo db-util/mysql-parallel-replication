@@ -1,8 +1,8 @@
-package: mysql-parallel-replicator
+package: github.com/gc-medic/mysql-parallel-replicator
 ignore:
-- example_shard_rebalancing
+- sharding_test
 import:
 - package: github.com/go-sql-driver/mysql
-  version: 26471af196a17ee75a22e6481b5a5897fb16b081
-
-testImport:
+  version: v1.3
+- package: github.com/siddontang/go-mysql
+  version: 92db39824694a4f8c991161902da9b64cc6a0353
