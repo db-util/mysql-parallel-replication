@@ -1,8 +1,6 @@
-package: github.com/gc-medic/mysql-parallel-replicator
+package: github.com/db-util/mysql-parallel-replication
 ignore:
-- sharding_test
+- test_shard_split
 import:
-- package: github.com/go-sql-driver/mysql
-  version: v1.3
 - package: github.com/siddontang/go-mysql
-  version: 92db39824694a4f8c991161902da9b64cc6a0353
+  version: 7eb7143a22bdd0eb9d577639e759088624821207
