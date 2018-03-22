@@ -3,4 +3,4 @@ ignore:
 - test_shard_split
 import:
 - package: github.com/siddontang/go-mysql
-  version: 7eb7143a22bdd0eb9d577639e759088624821207
+  version: f77cd2a3cb46c6ceba6c3439cf5b937f6a314569

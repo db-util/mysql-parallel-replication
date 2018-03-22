@@ -99,7 +99,7 @@ func (s *ParallelSyncer) parallelizeStream(stream *repl.BinlogStreamer) {
 			s.closeWithError(err)
 			break
 		}
-
+		
 		workerIds := s.WorkerAssigner(event)
 		eventWrapper := &binlogEventWrapper{event, int32(len(workerIds)), sync.WaitGroup{}}
 		eventWrapper.depWait.Add(1)

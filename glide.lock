@@ -1,6 +1,32 @@
-hash: 74ae3d966f6e531ec8fe040a20bd6d3ef265f692c4d09808ffc952224a387a69
-updated: 2017-12-30T17:21:19.066308+09:00
+hash: aa2e3c8b028024286a2c6a2f67c01e79547faa7b2886beef1d4832bd5a48302b
+updated: 2018-02-12T18:14:42.361489+09:00
 imports:
+- name: github.com/juju/errors
+  version: c7d06af17c68cd34c835053720b21f6549d9b0ee
+- name: github.com/satori/go.uuid
+  version: f58768cc1a7a7e77a3bd49e98cdd21419399b6a3
+- name: github.com/shopspring/decimal
+  version: 9ca7f51822d222ae4e246f070f9aad863599bd1a
+- name: github.com/siddontang/go
+  version: cb568a3e5cc06256f91a2da5a87455f717eb33f4
+  subpackages:
+  - hack
 - name: github.com/siddontang/go-mysql
-  version: 7eb7143a22bdd0eb9d577639e759088624821207
+  version: f77cd2a3cb46c6ceba6c3439cf5b937f6a314569
+  subpackages:
+  - client
+  - mysql
+  - packet
+  - replication
+- name: github.com/sirupsen/logrus
+  version: d682213848ed68c0a260ca37d6dd5ace8423f5ba
+- name: golang.org/x/crypto
+  version: 9de5f2eaf759b4c4550b3db39fed2e9e5f86f45c
+  subpackages:
+  - ssh/terminal
+- name: golang.org/x/sys
+  version: 37707fdb30a5b38865cfb95e5aab41707daec7fd
+  subpackages:
+  - unix
+  - windows
 testImports: []
